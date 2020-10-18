@@ -1,0 +1,116 @@
+{
+	"fsc": [
+		{
+			"name": "C2",
+			"state":[
+				{
+					"name": "20",
+					"is-init": true,
+					"out-transition": [
+						{
+							"name": "t2a",
+							"destination": "21",
+							"link":[
+								{
+									"type": "in",
+									"link": "L2",
+									"event": "e2"
+								},
+								{
+									"type": "out",
+									"link": "L3",
+									"event": "e3"
+								}
+							],
+							"observable": [
+								{
+									"name": "o2"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "21",
+					"out-transition": [
+						{
+							"name": "t2b",
+							"destination": "20",
+							"link":[
+								{
+									"type": "out",
+									"link": "L3",
+									"event": "e3"
+								}
+							],
+							"relevant": [
+								{
+									"name": "r"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "C3",
+			"state":[
+				{
+					"name": "30",
+					"is-init": true,
+					"out-transition": [
+						{
+							"name": "t3a",
+							"destination": "31",
+							"link":[
+								{
+									"type": "out",
+									"link": "L2",
+									"event": "e2"
+								}
+							],
+							"observable": [
+								{
+									"name": "o3"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "31",
+					"out-transition": [
+						{
+							"name": "t3b",
+							"destination": "30",
+							"link":[
+								{
+									"type": "in",
+									"link": "L3",
+									"event": "e3"
+								}
+							]
+						},
+						{
+							"name": "t3c",
+							"destination": "31",
+							"link":[
+								{
+									"type": "in",
+									"link": "L3",
+									"event": "e3"
+								}
+							],
+							"relevant": [
+								{
+									"name": "f"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
