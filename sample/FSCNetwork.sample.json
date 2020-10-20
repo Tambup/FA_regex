@@ -1,12 +1,13 @@
 {
-	"fsc": [
+	"name": null,
+	"comportamentalFA": [
 		{
 			"name": "C2",
 			"state":[
 				{
 					"name": "20",
-					"is-init": true,
-					"out-transition": [
+					"init": true,
+					"outTransition": [
 						{
 							"name": "t2a",
 							"destination": "21",
@@ -22,17 +23,15 @@
 									"event": "e3"
 								}
 							],
-							"observable": [
-								{
-									"name": "o2"
-								}
-							]
+							"observable": [ "o2" ],
+							"relevant": null
 						}
 					]
 				},
 				{
 					"name": "21",
-					"out-transition": [
+					"init": false,
+					"outTransition": [
 						{
 							"name": "t2b",
 							"destination": "20",
@@ -43,11 +42,8 @@
 									"event": "e3"
 								}
 							],
-							"relevant": [
-								{
-									"name": "r"
-								}
-							]
+							"observable": null,
+							"relevant": [ "r" ]
 						}
 					]
 				}
@@ -58,8 +54,8 @@
 			"state":[
 				{
 					"name": "30",
-					"is-init": true,
-					"out-transition": [
+					"init": true,
+					"outTransition": [
 						{
 							"name": "t3a",
 							"destination": "31",
@@ -70,17 +66,15 @@
 									"event": "e2"
 								}
 							],
-							"observable": [
-								{
-									"name": "o3"
-								}
-							]
+							"observable": [ "o3" ],
+							"relevant": null
 						}
 					]
 				},
 				{
 					"name": "31",
-					"out-transition": [
+					"init": false,
+					"outTransition": [
 						{
 							"name": "t3b",
 							"destination": "30",
@@ -102,11 +96,8 @@
 									"event": "e3"
 								}
 							],
-							"relevant": [
-								{
-									"name": "f"
-								}
-							]
+							"observable": null,
+							"relevant": [ "f" ]
 						}
 					]
 				}
