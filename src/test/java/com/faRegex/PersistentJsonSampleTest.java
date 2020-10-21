@@ -1,4 +1,4 @@
-package com.FA_regex;
+package com.faRegex;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
