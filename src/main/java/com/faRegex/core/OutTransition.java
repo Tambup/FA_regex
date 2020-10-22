@@ -1,6 +1,8 @@
 package com.faRegex.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -63,6 +65,22 @@ public class OutTransition {
 		this.relevant = relevant;
 	}
 
+	public List<String> outLinks() {
+		ArrayList<String> lista=new ArrayList<String>();
+		for (Link link: links)
+			if (link.getType().equals(Link.Type.OUT) && !lista.contains(link.getLink()))
+				lista.add(link.getLink());
+		return lista;
+	}
+	
+	public List<String> inLinks() {
+		ArrayList<String> lista=new ArrayList<String>();
+		for (Link link: links)
+			if (link.getType().equals(Link.Type.IN) && !lista.contains(link.getLink()))
+				lista.add(link.getLink());
+		return lista;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof OutTransition)
@@ -117,5 +135,61 @@ public class OutTransition {
 			else return false;
 		}
 		return true;
+	}
+
+	public boolean check() {
+		if(links == null) return true;
+		boolean inLinkExist=false;
+		
+		for (Link link: links) {
+			if (link == null) return false;
+			if (link.getType().equals(Link.Type.IN)) {
+				if (inLinkExist)
+					return false;
+				inLinkExist=true;
+			}
+		}
+		
+		for (Link link: links) 
+			for (Link innerLink: links)
+				if (link != innerLink)
+					if (link.getType().equals(Link.Type.OUT) && link.getType().equals(Link.Type.OUT))
+						if (link.getLink().equals(innerLink.getLink()))
+							return false;
+		
+		return true;
+	}
+	
+	public boolean sameEvents(Link[] othLinks) {
+		boolean bothNull=false;
+		if (links == null || othLinks== null)
+			if (links != null || othLinks != null) return false;
+			else bothNull=true;
+		if (!bothNull ) {
+			for (Link link: links) {
+				boolean isContained=false;
+				for (Link outLink: othLinks)
+					if (link.getEvent().equals(outLink.getEvent())) {
+						if (link.getType().equals(outLink.getType())) {
+							isContained=true;
+							break;
+						}
+					}
+				if (!isContained) return false;
+			}
+			for (Link outLink: othLinks) {
+				boolean isContained=false;
+				for (Link link: links)
+					if (link.getEvent().equals(outLink.getEvent())) {
+						if (link.getType().equals(outLink.getType())) {
+							isContained=true;
+							break;
+						}
+					}
+				if (!isContained) return false;
+			}
+			return true;
+		}
+		return false;
 	}
 }

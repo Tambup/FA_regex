@@ -77,5 +77,58 @@ public class ComportamentalFANetwork {
 		
 		return false;
 	}
+
+	
+	public boolean check() {
+		if (comportamentalFAs == null) return false;
+		if (comportamentalFAs.length < 1)
+			return false;
+		for (ComportamentalFA compFa: comportamentalFAs)
+			if (compFa==null) return false;
+		
+		
+		for (ComportamentalFA compFa: comportamentalFAs) {
+			if (!compFa.check())
+				return false;
+			
+			if(comportamentalFAs.length > 1) {
+				for (String inLink: compFa.inLinks()) {
+					byte numOut=0;
+					for (ComportamentalFA innerCompFa: comportamentalFAs)
+						if (compFa != innerCompFa) {
+							for (String innerInLink: innerCompFa.inLinks())
+								if (inLink.equals(innerInLink)) return false;
+							
+							
+							for (String innerOutLink: innerCompFa.outLinks()) {
+								if (inLink.equals(innerOutLink))
+									numOut++;
+								if (numOut >= 2) return false;
+							}
+						}
+					
+					if (numOut != 1) return false;
+				}
+				
+				for (String outLink: compFa.outLinks()) {
+					byte numIn=0;
+					for (ComportamentalFA innerCompFa: comportamentalFAs)
+						if (compFa != innerCompFa) {
+							for (String innerOutLink: innerCompFa.outLinks())
+								if (outLink.equals(innerOutLink)) return false;
+							
+							for (String innerInLink: innerCompFa.inLinks()) {
+								if (outLink.equals(innerInLink))
+									numIn++;
+								if (numIn >= 2) return false;
+							}
+						}
+					
+					if (numIn != 1) return false;
+				}
+			}
+		}
+		return true;
+	}
 	
 }

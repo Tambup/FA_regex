@@ -66,7 +66,6 @@ public class App {
 				cfaNetwork=new UserInputReader().readInput(arguments.file != null ? 
 						arguments.file : arguments.comportamentalFANetwork
 						);
-			
 		} catch (JsonMappingException e) {
 			System.err.println("The input doesn't correspond to a ComportamentalFANetwork");
 			System.exit(1);
@@ -77,5 +76,11 @@ public class App {
 			System.err.println("Some error with file handling occurred");
 			System.exit(1);
 		}
+		
+		if (!cfaNetwork.check()) {
+			System.err.println("The input describe a malformatted ComportamentalFANetwork");
+			System.exit(1);
+		}
+			
 	}
 }

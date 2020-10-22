@@ -1,5 +1,8 @@
 package com.faRegex.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({ "name", "init", "outTransition" })
@@ -48,6 +51,24 @@ public class State {
 		this.outTransitions = outTransition;
 	}
 
+	public List<String> outLinks() {
+		ArrayList<String> list=new ArrayList<String>();
+		for (OutTransition outTrans: outTransitions)
+			for (String string: outTrans.outLinks())
+				if (!list.contains(string))
+					list.add(string);
+		return list;
+	}
+	
+	public List<String> inLinks() {
+		ArrayList<String> list=new ArrayList<String>();
+		for (OutTransition outTrans: outTransitions)
+			for (String string: outTrans.inLinks())
+				if (!list.contains(string))
+					list.add(string);
+		return list;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof State)
@@ -88,6 +109,31 @@ public class State {
 		}
 		
 		return false;
+	}
+
+	public boolean check() {
+		if (outTransitions == null) return true;
+		if (name == null) return false;
+		for(OutTransition outTrans: outTransitions)
+			if (outTrans == null) return false;
+			else if (!outTrans.check()) return false;
+		
+		for(OutTransition outTrans: outTransitions)
+			for(OutTransition innerOutTrans: outTransitions)
+				if (outTrans != innerOutTrans)
+					if(outTrans.getName().equals(innerOutTrans.getName()))
+						if(outTrans.sameEvents(innerOutTrans.getLink()))
+							return false;
+		return true;
+	}
+
+	public boolean noExit() {
+		if (outTransitions == null) return true;
+		for (OutTransition outTrans: outTransitions) {
+			if (!outTrans.getDestination().equals(name))
+				return false;
+		}
+		return true;
 	}
 	
 }
