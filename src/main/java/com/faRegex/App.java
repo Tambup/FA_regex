@@ -73,7 +73,8 @@ public class App {
 			command.usage();
 			System.exit(1);
 		}
-		Paths.get(outFile.substring(0, outFile.lastIndexOf("/"))).toString();
+		
+		
 		try {
 			if(fromStdIn != null)
 				cfaNetwork=new UserInputReader().readInput(fromStdIn.toString());
