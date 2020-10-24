@@ -102,4 +102,5 @@ public class ComportamentalFANetworkTest {
     	ComportamentalFANetwork compFAN=new ComportamentalFANetwork("Mesto", compFAs);
     	assertFalse(compFAN.check());
 	}
+
 }

@@ -1,6 +1,8 @@
 package com.faRegex;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 import com.beust.jcommander.JCommander;
@@ -22,6 +24,10 @@ public class App {
 		@Parameter(names = { "-f",
 				"--file" }, description = "File containing the ComportamentalFANetwork")
 		private String file;
+		
+		@Parameter(names = { "-o",
+		"--out-dir" }, description = "Directory to output results", required = true)
+		private String outDir;
 	}
 
 	public static void main(String[] args) {
@@ -30,9 +36,11 @@ public class App {
 		JCommander command = JCommander.newBuilder().addObject(arguments).build();
 		ComportamentalFANetwork cfaNetwork=null;
 		ComportamentalFANSpace cFANS = null;
+		String outFile = null;
 		
 		try {
 			command.parse(args);
+			outFile= arguments.outDir.replaceFirst("^~", System.getProperty("user.home"));
 			if (arguments.help) {
 				command.usage();
 				System.exit(0);
@@ -53,13 +61,19 @@ public class App {
 		    		System.err.println("Use one between -f option or string unassociated with -like option is mandatory or input redirection");
 		        	throw new ParameterException("");
 	        	}
-	        }
+	        } else if (Files.exists(Paths.get(outFile))){
+	        	System.err.println("The file already exists");
+	        	System.exit(1);
+	        } else if (!Files.isWritable(Paths.get(outFile.substring(0, outFile.lastIndexOf("/"))))){
+	        	System.err.println("Cannot access the output directory");
+	        	System.exit(1);
+	        } 
 		} catch (ParameterException e) {
 			System.err.println("Options not correctly formatted");
 			command.usage();
 			System.exit(1);
 		}
-		
+		Paths.get(outFile.substring(0, outFile.lastIndexOf("/"))).toString();
 		try {
 			if(fromStdIn != null)
 				cfaNetwork=new UserInputReader().readInput(fromStdIn.toString());
@@ -83,8 +97,16 @@ public class App {
 			System.exit(1);
 		}
 		
-		//From now the ComportamentalFANetwork must be intended as correct
+		//From here the ComportamentalFANetwork must be intended as correct
 		cFANS = new ComportamentalFANSpace(cfaNetwork);
 		cFANS.build();
+		
+		try {
+			new UserInputReader().writeComportamentalFANSpace(cFANS, Paths.get(outFile));
+		} catch (IOException e) {
+			System.err.println("Cannot write " + Paths.get(outFile).toString());
+			System.exit(1);
+		}
+		System.exit(0);
 	}
 }

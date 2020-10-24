@@ -16,22 +16,22 @@ import com.faRegex.core.State;
 
 public class ComportamentalFANSpace {
 	private ComportamentalFANetwork compFAN;
-	private List<SpaceState> states;
+	private List<SpaceState> spaceStates;
 	
 	public ComportamentalFANSpace(ComportamentalFANetwork compFAN) {
-		states = new ArrayList<SpaceState>();
+		spaceStates = new ArrayList<SpaceState>();
 		this.compFAN = compFAN;
 	}
 	
 	public List<SpaceState> getStates() {
-		return states;
+		return spaceStates;
 	}
 	
 	public void build() {
 		initialize();
 		
-		for(int index=0; index<states.size(); index++) {
-			SpaceState actualSpaceState= states.get(index);
+		for(int index=0; index<spaceStates.size(); index++) {
+			SpaceState actualSpaceState= spaceStates.get(index);
 			HashMap<State, List<OutTransition>> nextTransitionPerState= actualSpaceState.nextTransitionPerState();
 			addStates(actualSpaceState, nextTransitionPerState);
 		}
@@ -39,6 +39,12 @@ public class ComportamentalFANSpace {
 		prune();
 	}
 
+	/**
+	 * This method is particularly crucial!
+	 * This preserves the state order across all the spaceStates!
+	 * @param actualSpaceState
+	 * @param nextTransitionPerState
+	 */
 	private void addStates(SpaceState actualSpaceState, HashMap<State, List<OutTransition>> nextTransitionPerState) {
 		int numComportamentalFA=0;
 		
@@ -54,12 +60,12 @@ public class ComportamentalFANSpace {
 						}
 					
 					SpaceState newSpaceState= newState(actualSpaceState, actualState, newState, actualOutTrans);
-					int existsIndex= states.indexOf(newSpaceState);
+					int existsIndex= spaceStates.indexOf(newSpaceState);
 					if (existsIndex == -1) {
-						states.add(newSpaceState);
+						spaceStates.add(newSpaceState);
 						actualSpaceState.addNext(actualOutTrans, newSpaceState);
 					} else
-						actualSpaceState.addNext(actualOutTrans, states.get(existsIndex));
+						actualSpaceState.addNext(actualOutTrans, spaceStates.get(existsIndex));
 				}
 			numComportamentalFA++;
 		}
@@ -68,11 +74,11 @@ public class ComportamentalFANSpace {
 	private void prune() {
 		ArrayList<SpaceState> mantain= new ArrayList<SpaceState>();
 		ArrayList<SpaceState> remove= new ArrayList<SpaceState>();
-		for(SpaceState state: states)
+		for(SpaceState state: spaceStates)
 			if (!mantain.contains(state) && !remove.contains(state))
 				pruneRecursive(state, new ArrayList<Triplet<SpaceState, String, SpaceState>>(), mantain, remove);
 		
-		states= mantain;
+		spaceStates= mantain;
 	}
 	
 	private boolean pruneRecursive(SpaceState state, List<Triplet<SpaceState, String, SpaceState>> forbidden
@@ -126,8 +132,8 @@ public class ComportamentalFANSpace {
 		String[] linksNames = compFAN.getLinksNames();
 		List<State> initStates= Arrays.stream(compFAs).map(compFA -> compFA.initState()).collect(Collectors.toList());
 		SpaceState init= new SpaceState(initStates, linksNames);
-		states.clear();
-		states.add(init);
+		spaceStates.clear();
+		spaceStates.add(init);
 		return init;
 	}
 }

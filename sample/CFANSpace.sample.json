@@ -1,0 +1,175 @@
+{
+  "states" : [ {
+    "name" : "CFAN 0: 20 CFAN 1: 30 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "30",
+      "CFAN 0" : "20"
+    },
+    "nexts" : {
+      "t3a" : "CFAN 0: 20 CFAN 1: 31 L2: e2 L3: \\eps//eps\\eps// "
+    }
+  }, {
+    "name" : "CFAN 0: 21 CFAN 1: 31 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "21"
+    },
+    "nexts" : {
+      "t2b" : "CFAN 0: 20 CFAN 1: 31 L2: \\eps//eps\\eps// L3: e3 "
+    }
+  }, {
+    "name" : "CFAN 0: 21 CFAN 1: 31 L2: \\eps//eps\\eps// L3: e3 ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "e3"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "21"
+    },
+    "nexts" : {
+      "t3b" : "CFAN 0: 21 CFAN 1: 30 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// ",
+      "t3c" : "CFAN 0: 21 CFAN 1: 31 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// "
+    }
+  }, {
+    "name" : "CFAN 0: 20 CFAN 1: 31 L2: e2 L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "e2",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "20"
+    },
+    "nexts" : {
+      "t2a" : "CFAN 0: 21 CFAN 1: 31 L2: \\eps//eps\\eps// L3: e3 "
+    }
+  }, {
+    "name" : "CFAN 0: 21 CFAN 1: 30 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "30",
+      "CFAN 0" : "21"
+    },
+    "nexts" : {
+      "t3a" : "CFAN 0: 21 CFAN 1: 31 L2: e2 L3: \\eps//eps\\eps// ",
+      "t2b" : "CFAN 0: 20 CFAN 1: 30 L2: \\eps//eps\\eps// L3: e3 "
+    }
+  }, {
+    "name" : "CFAN 0: 20 CFAN 1: 31 L2: e2 L3: e3 ",
+    "links" : {
+      "L2" : "e2",
+      "L3" : "e3"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "20"
+    },
+    "nexts" : {
+      "t3b" : "CFAN 0: 20 CFAN 1: 30 L2: e2 L3: \\eps//eps\\eps// ",
+      "t3c" : "CFAN 0: 20 CFAN 1: 31 L2: e2 L3: \\eps//eps\\eps// "
+    }
+  }, {
+    "name" : "CFAN 0: 20 CFAN 1: 30 L2: \\eps//eps\\eps// L3: e3 ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "e3"
+    },
+    "states" : {
+      "CFAN 1" : "30",
+      "CFAN 0" : "20"
+    },
+    "nexts" : {
+      "t3a" : "CFAN 0: 20 CFAN 1: 31 L2: e2 L3: e3 "
+    }
+  }, {
+    "name" : "CFAN 0: 21 CFAN 1: 31 L2: e2 L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "e2",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "21"
+    },
+    "nexts" : {
+      "t2b" : "CFAN 0: 20 CFAN 1: 31 L2: e2 L3: e3 "
+    }
+  }, {
+    "name" : "CFAN 0: 20 CFAN 1: 31 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "20"
+    },
+    "nexts" : { }
+  }, {
+    "name" : "CFAN 0: 20 CFAN 1: 31 L2: \\eps//eps\\eps// L3: e3 ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "e3"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "20"
+    },
+    "nexts" : {
+      "t3b" : "CFAN 0: 20 CFAN 1: 30 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// ",
+      "t3c" : "CFAN 0: 20 CFAN 1: 31 L2: \\eps//eps\\eps// L3: \\eps//eps\\eps// "
+    }
+  }, {
+    "name" : "CFAN 0: 21 CFAN 1: 31 L2: e2 L3: e3 ",
+    "links" : {
+      "L2" : "e2",
+      "L3" : "e3"
+    },
+    "states" : {
+      "CFAN 1" : "31",
+      "CFAN 0" : "21"
+    },
+    "nexts" : {
+      "t3b" : "CFAN 0: 21 CFAN 1: 30 L2: e2 L3: \\eps//eps\\eps// ",
+      "t3c" : "CFAN 0: 21 CFAN 1: 31 L2: e2 L3: \\eps//eps\\eps// "
+    }
+  }, {
+    "name" : "CFAN 0: 21 CFAN 1: 30 L2: \\eps//eps\\eps// L3: e3 ",
+    "links" : {
+      "L2" : "\\eps//eps\\eps//",
+      "L3" : "e3"
+    },
+    "states" : {
+      "CFAN 1" : "30",
+      "CFAN 0" : "21"
+    },
+    "nexts" : {
+      "t3a" : "CFAN 0: 21 CFAN 1: 31 L2: e2 L3: e3 "
+    }
+  }, {
+    "name" : "CFAN 0: 20 CFAN 1: 30 L2: e2 L3: \\eps//eps\\eps// ",
+    "links" : {
+      "L2" : "e2",
+      "L3" : "\\eps//eps\\eps//"
+    },
+    "states" : {
+      "CFAN 1" : "30",
+      "CFAN 0" : "20"
+    },
+    "nexts" : {
+      "t2a" : "CFAN 0: 21 CFAN 1: 30 L2: \\eps//eps\\eps// L3: e3 "
+    }
+  } ]
+}

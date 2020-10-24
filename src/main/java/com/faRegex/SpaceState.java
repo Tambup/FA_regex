@@ -9,13 +9,17 @@ import java.util.Map;
 import com.faRegex.core.Link;
 import com.faRegex.core.OutTransition;
 import com.faRegex.core.State;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 class SpaceState implements Cloneable{
+	@JsonIgnore
 	private static final String NULL_EVT="\\eps//eps\\eps//";
 	
 	private HashMap<String, String> links = new HashMap<String, String>();
 	private List<State> states = new ArrayList<State>();
 	private HashMap<OutTransition, SpaceState> nexts = new HashMap<OutTransition, SpaceState>();
+	private String name = null;
 	
 	SpaceState(List<State> states, String[] links) {
 		Arrays.stream(links).forEach(linkName -> this.links.put(linkName, NULL_EVT));
@@ -27,6 +31,49 @@ class SpaceState implements Cloneable{
 		this.states.addAll(states);
 	}
 	
+	@JsonGetter("links")
+	public HashMap<String, String> jsonGetLinks() {
+		return links;
+	}
+	
+	@JsonGetter("states")
+	public HashMap<String, String> jsonGetStates() {
+		HashMap<String, String> statesMap= new HashMap<String, String>();
+		int i= 0;
+		for(State s: states)
+			statesMap.put("CFAN " + i++, s.getName());
+		
+		return statesMap;
+	}
+	
+	@JsonGetter("nexts")
+	public HashMap<String, String> jsonGetNexts() {
+		HashMap<String, String> nextsMap= new HashMap<String, String>();
+		for(OutTransition outTrans: nexts.keySet())
+			nextsMap.put(outTrans.getName(), nexts.get(outTrans).getName());
+		
+		return nextsMap;
+	}
+	
+	public String getName() {
+		if (name != null)
+			return name;
+		
+		return jsonToStringName();
+	}
+
+	private String jsonToStringName() {
+		StringBuilder temp= new StringBuilder();
+		int i= 0;
+		for(State s: states)
+			temp.append("CFAN " + i++ + ": " + s.getName() + " ");
+		
+		for(String linkName: links.keySet())
+			temp.append(linkName + ": " + links.get(linkName) + " ");
+		
+		return temp.toString();
+	}
+
 	HashMap<State, List<OutTransition>> nextTransitionPerState() {
 		HashMap<State, List<OutTransition>> possibleNextState = new HashMap<State, List<OutTransition>>();
 		for (State nextState: states) {
