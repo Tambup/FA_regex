@@ -1,5 +1,9 @@
 package com.faRegex.core;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.function.Predicate;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ComportamentalFANetwork {
@@ -30,6 +34,15 @@ public class ComportamentalFANetwork {
 		this.comportamentalFAs = comportamentalFAs;
 	}
 
+	public String[] getLinksNames() {
+		ArrayList<String> linksNames = new ArrayList<String>();
+		Arrays.stream(comportamentalFAs).flatMap(
+				mapper -> mapper.inLinks().stream()
+				).filter(Predicate.not(linksNames::contains)).forEach(linksNames::add);
+
+		return linksNames.toArray(new String[linksNames.size()]);
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ComportamentalFANetwork)

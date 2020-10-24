@@ -128,4 +128,14 @@ public class ComportamentalFATest {
     	ComportamentalFA compFA= new ComportamentalFA("C2", states);
     	assertFalse(compFA.check());
 	}
+	
+	@Test
+	public void checkduplicateState() {
+		Link[] links1= {new Link(Link.Type.IN, "L2", "e3"), new Link(Link.Type.OUT, "L3", "e3")};
+    	Link[] links2= {new Link(Link.Type.IN, "L2", "e2"), new Link(Link.Type.OUT, "L3", "e3")};
+    	OutTransition[] outTransition= {new OutTransition("t2a", "22", links1, null, null), new OutTransition("t2a", "21", links2, null, null)};
+    	State[] states= {new State("21", true, outTransition), new State("21", false, outTransition)};
+    	ComportamentalFA compFA= new ComportamentalFA("C2", states);
+    	assertFalse(compFA.check());
+	}
 }

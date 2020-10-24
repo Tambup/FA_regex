@@ -52,6 +52,13 @@ public class ComportamentalFA {
 		return list;
 	}
 	
+	public State initState() {
+		for (State state: states)
+			if (state.isInit())
+				return state;
+		return null;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof ComportamentalFA)

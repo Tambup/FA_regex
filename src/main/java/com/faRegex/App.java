@@ -29,6 +29,7 @@ public class App {
 		ArgStructure arguments= new ArgStructure();
 		JCommander command = JCommander.newBuilder().addObject(arguments).build();
 		ComportamentalFANetwork cfaNetwork=null;
+		ComportamentalFANSpace cFANS = null;
 		
 		try {
 			command.parse(args);
@@ -81,6 +82,9 @@ public class App {
 			System.err.println("The input describe a malformatted ComportamentalFANetwork");
 			System.exit(1);
 		}
-			
+		
+		//From now the ComportamentalFANetwork must be intended as correct
+		cFANS = new ComportamentalFANSpace(cfaNetwork);
+		cFANS.build();
 	}
 }
