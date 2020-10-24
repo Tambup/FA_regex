@@ -3,6 +3,7 @@ package com.faRegex;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,17 +73,17 @@ public class ComportamentalFANSpace {
 	}
 	
 	private void prune() {
-		ArrayList<SpaceState> mantain= new ArrayList<SpaceState>();
-		ArrayList<SpaceState> remove= new ArrayList<SpaceState>();
+		HashSet<SpaceState> mantain= new HashSet<SpaceState>();
+		HashSet<SpaceState> remove= new HashSet<SpaceState>();
 		for(SpaceState state: spaceStates)
 			if (!mantain.contains(state) && !remove.contains(state))
-				pruneRecursive(state, new ArrayList<Triplet<SpaceState, String, SpaceState>>(), mantain, remove);
+				pruneRecursive(state, new HashSet<Triplet<SpaceState, String, SpaceState>>(), mantain, remove);
 		
-		spaceStates= mantain;
+		spaceStates= new ArrayList<SpaceState>(mantain);
 	}
 	
-	private boolean pruneRecursive(SpaceState state, List<Triplet<SpaceState, String, SpaceState>> forbidden
-			, List<SpaceState> mantain, List<SpaceState> remove) {
+	private boolean pruneRecursive(SpaceState state, HashSet<Triplet<SpaceState, String, SpaceState>> forbidden
+			, HashSet<SpaceState> mantain, HashSet<SpaceState> remove) {
 		if (state.isFinal()) {
 			if(!mantain.contains(state))
 				mantain.add(state);
