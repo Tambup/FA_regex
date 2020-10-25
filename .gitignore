@@ -1,8 +1,7 @@
-.project
 /target/
 /.classpath
 /hs_err_pid*
 /.settings/*
 /.vscode/
 settings.json
-
+.project
