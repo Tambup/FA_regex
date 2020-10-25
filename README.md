@@ -52,14 +52,14 @@
   
 ### Parte 2 (Slide 40-46)
 * Osservazione lineare:
- * È una sequenza di eventi osservabili, ad esempio O = [o3, o2], verificatisi (nell’ordine stabilito dalla sequenza) lungo una traiettoria della rete di FA comportamentali
- * La stessa osservazione lineare può corrispondere a più traiettorie
+  * È una sequenza di eventi osservabili, ad esempio O = [o3, o2], verificatisi (nell’ordine stabilito dalla sequenza) lungo una traiettoria della rete di FA comportamentali
+  * La stessa osservazione lineare può corrispondere a più traiettorie
 * Spazio comportamentale relativo a una osservazione lineare:
- * È la porzione di spazio comportamentale che contiene tutte e sole le traiettorie che producono l’osservazione lineare data
- * Può essere costruito con un algoritmo analogo a quello di costruzione dello spazio comportamentale, dove ogni stato dello spazio, in aggiunta agli stati dei componenti e dei link, contiene anche un indice dell’osservazione lineare data
- * Lo stato iniziale dello spazio comportamentale relativo a un’osservazione lineare O contiene lo stato iniziale di tutti i componenti e di tutti i link nonché il valore 0 (zero) dell’indice dell’osservazione
- * Uno stato dello spazio comportamentale relativo a un’osservazione lineare è finalese tutti i link sono vuoti e il valore dell’indice è pari a length[O]
- * Sia p uno stato dello spazio comportamentale relativo a un’osservazione e q l’indice dell’osservazione in esso contenuto. A partire da p, una transizione osservabile non è abilitata se essa produce un evento osservabile diverso da O[q+1]. Quando q = length[O], nessuna transizione osservabile è abilitata
- * A ogni stato dell'osservazione lineare può essere assegnato un identificatore univoco; operazione detta **Ridenominazione**
- * Sull'osservazione lineare deve effettuare la **potatura**, ovvero l'eliminazione degli stati (e transizioni) da cui non è possibile raggiungere alcuno stato finale
+  * È la porzione di spazio comportamentale che contiene tutte e sole le traiettorie che producono l’osservazione lineare data
+  * Può essere costruito con un algoritmo analogo a quello di costruzione dello spazio comportamentale, dove ogni stato dello spazio, in aggiunta agli stati dei componenti e dei link, contiene anche un indice dell’osservazione lineare data
+  * Lo stato iniziale dello spazio comportamentale relativo a un’osservazione lineare O contiene lo stato iniziale di tutti i componenti e di tutti i link nonché il valore 0 (zero) dell’indice dell’osservazione
+  * Uno stato dello spazio comportamentale relativo a un’osservazione lineare è finalese tutti i link sono vuoti e il valore dell’indice è pari a length[O]
+  * Sia p uno stato dello spazio comportamentale relativo a un’osservazione e q l’indice dell’osservazione in esso contenuto. A partire da p, una transizione osservabile non è abilitata se essa produce un evento osservabile diverso da O[q+1]. Quando q = length[O], nessuna transizione osservabile è abilitata
+  * A ogni stato dell'osservazione lineare può essere assegnato un identificatore univoco; operazione detta **Ridenominazione**
+  * Sull'osservazione lineare deve effettuare la **potatura**, ovvero l'eliminazione degli stati (e transizioni) da cui non è possibile raggiungere alcuno stato finale
  
