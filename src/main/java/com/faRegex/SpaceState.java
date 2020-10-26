@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 class SpaceState implements Cloneable{
 	@JsonIgnore
-	private static final String NULL_EVT="\\eps//eps\\eps//";
+	private static final String NULL_EVT = "\u03B5";
 	
 	private HashMap<String, String> links = new HashMap<String, String>();
 	private List<State> states = new ArrayList<State>();
