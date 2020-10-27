@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import com.faRegex.ComportamentalFANSpace;
+import com.faRegex.Task;
 import com.faRegex.core.ComportamentalFANetwork;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -24,8 +24,8 @@ public class UserInputReader {
 			return mapper.readValue(mainInput, ComportamentalFANetwork.class);
 	}
 	
-	public void writeComportamentalFANSpace(ComportamentalFANSpace cFANS, Path path) throws IOException {
+	public void writeResult(Task task, Path path) throws IOException {
 		ObjectWriter mapper=new ObjectMapper().writerWithDefaultPrettyPrinter();
-		mapper.writeValue(path.toFile(), cFANS);
+		mapper.writeValue(path.toFile(), task);
 	}
 }

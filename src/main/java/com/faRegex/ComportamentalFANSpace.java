@@ -15,19 +15,20 @@ import com.faRegex.core.Link;
 import com.faRegex.core.OutTransition;
 import com.faRegex.core.State;
 
-public class ComportamentalFANSpace {
-	private ComportamentalFANetwork compFAN;
+public class ComportamentalFANSpace extends Task {
+	
 	private List<SpaceState> spaceStates;
 	
 	public ComportamentalFANSpace(ComportamentalFANetwork compFAN) {
+		super(compFAN);
 		spaceStates = new ArrayList<SpaceState>();
-		this.compFAN = compFAN;
 	}
 	
 	public List<SpaceState> getStates() {
 		return spaceStates;
 	}
 	
+	@Override
 	public void build() {
 		initialize();
 		
@@ -54,7 +55,7 @@ public class ComportamentalFANSpace {
 			if (actualOutTransList != null)
 				for (OutTransition actualOutTrans: actualOutTransList) {
 					State newState= null;
-					for(State candidate: compFAN.getComportamentalFAs()[numComportamentalFA].getStates())
+					for(State candidate: getCompFAN().getComportamentalFAs()[numComportamentalFA].getStates())
 						if (actualOutTrans.getDestination().equals(candidate.getName())) {
 							newState= candidate;
 							break;
@@ -129,8 +130,8 @@ public class ComportamentalFANSpace {
 	}
 	
 	private SpaceState initialize() {
-		ComportamentalFA[] compFAs = compFAN.getComportamentalFAs();
-		String[] linksNames = compFAN.getLinksNames();
+		ComportamentalFA[] compFAs = getCompFAN().getComportamentalFAs();
+		String[] linksNames = getCompFAN().getLinksNames();
 		List<State> initStates= Arrays.stream(compFAs).map(compFA -> compFA.initState()).collect(Collectors.toList());
 		SpaceState init= new SpaceState(initStates, linksNames);
 		spaceStates.clear();
