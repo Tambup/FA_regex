@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.junit.Test;
 
@@ -21,7 +22,7 @@ public class SpaceStateTest {
 	private static final String SAMPLE_FSC_NETWORK_SAMPLE_JSON = "sample/FSCNetwork.sample.json";
 	
 	@Test
-	public void testInit() throws JsonParseException, JsonMappingException, IOException {
+	public void testMaintain() throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper=new ObjectMapper();
 		ComportamentalFANetwork cFAN= mapper.readValue(new File(SAMPLE_FSC_NETWORK_SAMPLE_JSON), ComportamentalFANetwork.class);
 		ComportamentalFANSpace cFANS= new ComportamentalFANSpace(cFAN);
@@ -30,42 +31,26 @@ public class SpaceStateTest {
 		states.add(cFAN.getComportamentalFAs()[0].getStates()[0]);
 		states.add(cFAN.getComportamentalFAs()[1].getStates()[0]);
 		SpaceState toCheck= new SpaceState(states, links);
-		/*Link[] link= new Link[1];
-		link[0]= new Link(Link.Type.OUT, "L2", "e2");
-		String[] obs= new String[1];
-		obs[0]= "o3";
-		toCheck.addNext(new OutTransition("t3a", "31", link, obs, null), null);*/
 		
 		cFANS.build();
-		assertTrue(cFANS.getStates().get(0).equals(toCheck));
+		assertTrue(cFANS.getStates().contains(toCheck));
 	}
 	
 	@Test
-	public void testInitDeeper() throws JsonParseException, JsonMappingException, IOException {
+	public void testNotMantain() throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper mapper=new ObjectMapper();
 		ComportamentalFANetwork cFAN= mapper.readValue(new File(SAMPLE_FSC_NETWORK_SAMPLE_JSON), ComportamentalFANetwork.class);
 		ComportamentalFANSpace cFANS= new ComportamentalFANSpace(cFAN);
+		HashMap<String, String> links= new HashMap<String, String>();
+		links.put("L2", "e2");
+		links.put("L3", "\u03B5");
 		ArrayList<State> states= new ArrayList<State>();
-		states.add(cFAN.getComportamentalFAs()[0].getStates()[0]);
+		states.add(cFAN.getComportamentalFAs()[0].getStates()[1]);
 		states.add(cFAN.getComportamentalFAs()[1].getStates()[0]);
-		Link[] link= new Link[1];
-		link[0]= new Link(Link.Type.OUT, "L2", "e2");
-		String[] obs= new String[1];
-		obs[0]= "o3";
-		ArrayList<State> states2= new ArrayList<State>();
-		states2.add(cFAN.getComportamentalFAs()[0].getStates()[0]);
-		states2.add(cFAN.getComportamentalFAs()[1].getStates()[1]);
+		SpaceState toCheck= new SpaceState(states, links);
 		
 		cFANS.build();
-		cFANS.getStates().get(0).getNext().get(cFANS.getStates().get(0).getNext()
-				.keySet().iterator().next()).getStates().toArray(new State[2]);
-		OutTransition out= new OutTransition("t3a", "31", link, obs, null);
-		if (cFANS.getStates().get(0).getNext().keySet().iterator().next().equals(out))
-			assertArrayEquals(cFANS.getStates().get(0).getNext().get(cFANS.getStates().get(0).getNext()
-				.keySet().iterator().next()).getStates().toArray(new State[2])
-				, states2.toArray(new State[2]));
-		else
-			fail("The Transaction is not the espected one");
+		assertFalse(cFANS.getStates().contains(toCheck));
 	}
 
 }

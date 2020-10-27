@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ComportamentalFANetwork {
@@ -34,6 +35,7 @@ public class ComportamentalFANetwork {
 		this.comportamentalFAs = comportamentalFAs;
 	}
 
+	@JsonIgnore
 	public String[] getLinksNames() {
 		ArrayList<String> linksNames = new ArrayList<String>();
 		Arrays.stream(comportamentalFAs).flatMap(
